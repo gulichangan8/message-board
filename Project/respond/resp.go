@@ -80,3 +80,7 @@ func ReadMessageTrue(c *gin.Context, mess model.Mess) {
 func ReadMessageErr(c *gin.Context) {
 	c.String(200, "查看留言失败，用户名不存在")
 }
+
+func PublishProductionTrue(c *gin.Context) {
+	c.String(200, "作品发布成功")
+}

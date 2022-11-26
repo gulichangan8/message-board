@@ -3,7 +3,6 @@ package dao
 import (
 	"Project/model"
 	"database/sql"
-	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -15,6 +14,8 @@ func TakeDate(form string) (date interface{}) {
 	var Q model.Queses
 	var m model.Mess
 	var M model.Messes
+	var c model.Comment
+	var C model.Comments
 	var dns = "root:040818@tcp(127.0.0.1:3306)/message_board?charset=utf8mb4&parseTime=True&loc=Local"
 	db, _ := sql.Open("mysql", dns)
 	rows, _ := db.Query("select * from ?", form)
@@ -24,7 +25,7 @@ func TakeDate(form string) (date interface{}) {
 		for rows.Next() {
 			err := rows.Scan(&u.Username, &u.Password)
 			if err != nil {
-				fmt.Println(err)
+				return
 			}
 			U = append(U, u)
 			date = U
@@ -33,7 +34,7 @@ func TakeDate(form string) (date interface{}) {
 		for rows.Next() {
 			err := rows.Scan(&q.UserName, &q.TrueName, &q.LikeFood, &q.Age)
 			if err != nil {
-				fmt.Println(err)
+				return
 			}
 			Q = append(Q, q)
 			date = Q
@@ -42,10 +43,19 @@ func TakeDate(form string) (date interface{}) {
 		for rows.Next() {
 			err := rows.Scan(&m.OwnerName, &m.WriteName, &m.Message, &m.Respond)
 			if err != nil {
-				fmt.Println(err)
+				return
 			}
 			M = append(M, m)
 			date = M
+		}
+	case "comment":
+		for rows.Next() {
+			err := rows.Scan(&c.Author, &c.WriterAndMessage)
+			if err != nil {
+				return
+			}
+			C = append(C, c)
+			date = C
 		}
 	default:
 		break
@@ -59,6 +69,7 @@ func BringDate(form string, U model.Use) {
 	u := U.User
 	q := U.Ques
 	m := U.Mess
+	c := U.Comment
 	db, _ := sql.Open("mysql", dns)
 	//表分类
 	switch form {
@@ -80,8 +91,13 @@ func BringDate(form string, U model.Use) {
 		if err != nil {
 			return
 		}
+	case "comment":
+		_, err := db.Exec("insert into ? (author,writer_message) value (?,?)",
+			form, c.Author, c.WriterAndMessage)
+		if err != nil {
+			return
+		}
 	default:
 		break
 	}
 }
-

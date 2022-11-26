@@ -78,5 +78,4 @@ func ReadMessage(c *gin.Context) {
 	} else {
 		respond.ReadMessageErr(c)
 	}
-
 }

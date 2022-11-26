@@ -24,11 +24,29 @@ func InterUser() {
 func InterMessage() {
 	r := gin.Default()
 	r.Group("message", func(c *gin.Context) {
-		r.POST("/publish_comment", PublishMessage)
-		r.PUT("/change_message", ChangeMessage)
-		r.DELETE("delete_message", DeleteMessage)
-		r.POST("respond_message", RespondMessage)
-		r.GET("read_message", ReadMessage)
+		r.POST("/publish", PublishMessage)
+		r.PUT("/change", ChangeMessage)
+		r.DELETE("delete", DeleteMessage)
+		r.POST("respond", RespondMessage)
+		r.GET("read", ReadMessage)
+	})
+	err := r.Run()
+	if err != nil {
+		return
+	}
+}
+
+// InterPublishProduction 发布作品接口
+func InterPublishProduction() {
+	r := gin.Default()
+	r.POST("publish_production", PublishProduction)
+}
+
+// InterComment 评论作品接口
+func InterComment() {
+	r := gin.Default()
+	r.Group("comment", func(c *gin.Context) {
+
 	})
 	err := r.Run()
 	if err != nil {

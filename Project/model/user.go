@@ -6,13 +6,6 @@ type User struct {
 	Password string
 }
 
-type Mess struct {
-	OwnerName string
-	WriteName string
-	Message   string
-	Respond   string
-}
-
 type Ques struct {
 	UserName string
 	TrueName string
@@ -25,12 +18,6 @@ type Use struct {
 		Username string
 		Password string
 	}
-	Mess struct {
-		OwnerName string
-		WriteName string
-		Message   string
-		Respond   string
-	}
 	Ques struct {
 		UserName string
 		TrueName string
@@ -40,5 +27,4 @@ type Use struct {
 }
 
 type Users []User
-type Messes []Mess
 type Queses []Ques

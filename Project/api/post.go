@@ -20,7 +20,7 @@ func Register() {
 		use.User = U
 		if ok1 && ok2 {
 			c.String(200, "注册成功")
-			dao.BringDate("user", "user", use)
+			dao.BringDateUser("user", use)
 		} else {
 			c.String(200, "提示：1.用户名不能含有\\字符\n2.用户名不能小于六个字符\n3.密码不能含有\\字符\n4.密码不能小于六个字符\n")
 		}
@@ -57,7 +57,7 @@ func Question() {
 		q := tool.CreateQues(u, t, l, a)
 		var Q model.Use
 		Q.Ques = q
-		dao.BringDate("user", "message", Q)
+		dao.BringDateUser("message", Q)
 	})
 }
 
@@ -72,5 +72,17 @@ func AnswerQuestion() {
 		} else {
 			c.String(200, "密保问题回答错误，请重新回答")
 		}
+	})
+}
+
+// PublishComment 发表评论接口
+func PublishComment() {
+	r := gin.Default()
+	r.POST("/publish_comment", func(c *gin.Context) {
+		u, w, com := dao.GetComment(c)
+		Com := tool.CreateMess(w, u, com, "")
+		var C model.Mes
+		C.Mess = Com
+		dao.BringDateMessage("comment", C)
 	})
 }

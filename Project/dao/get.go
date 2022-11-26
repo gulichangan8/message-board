@@ -20,3 +20,11 @@ func GetQuestion(c *gin.Context) (string, string, string, int) {
 	age, _ := strconv.Atoi(c.PostForm("age"))
 	return username, trueName, likeFood, age
 }
+
+// GetComment 获得发表的评论
+func GetComment(c *gin.Context) (string, string, string) {
+	username := c.PostForm("username")
+	writeTo := c.PostForm("write_to")
+	comment := c.PostForm("comment")
+	return username, writeTo, comment
+}

@@ -43,3 +43,13 @@ func DeleteMessageDate(username string) {
 		return
 	}
 }
+
+// ChangeCommentDate 修改评论
+func ChangeCommentDate(comment string, username string) {
+	var dns = "root:040818@tcp(127.0.0.1:3306)/message_board?charset=utf8mb4&parseTime=True&loc=Local"
+	db, _ := sql.Open("mysql", dns)
+	_, err := db.Exec("update comment set writer_message=? where author=?", comment, username)
+	if err != nil {
+		return
+	}
+}

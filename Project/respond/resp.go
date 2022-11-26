@@ -92,3 +92,11 @@ func PublishCommentTrue(c *gin.Context) {
 func PublishCommentErr(c *gin.Context) {
 	c.String(200, "评论发表失败，未找到作者")
 }
+
+func ChangeCommentTrue(c *gin.Context) {
+	c.String(200, "评论修改成功")
+}
+
+func ChangeCommentErr(c *gin.Context) {
+	c.String(200, "未找到评论")
+}

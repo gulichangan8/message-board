@@ -23,3 +23,16 @@ func PublishComment(c *gin.Context) {
 		respond.PublishCommentErr(c)
 	}
 }
+
+// ChangeComment 修改评论
+func ChangeComment(c *gin.Context) {
+	w, com := service.GetUsernameCommentWriteTo(c)
+	ok := service.CheckAuthorExist(w)
+	if ok {
+		dao.ChangeCommentDate(com, w)
+		respond.ChangeCommentTrue(c)
+	} else {
+		respond.ChangeCommentErr(c)
+	}
+
+}

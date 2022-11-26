@@ -35,3 +35,8 @@ func GetNewMessage(c *gin.Context) (string, string) {
 	message := c.PostForm("message")
 	return username, message
 }
+
+func GetUsername(c *gin.Context) string {
+	username := c.PostForm("username")
+	return username
+}

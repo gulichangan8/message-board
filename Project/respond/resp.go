@@ -45,3 +45,7 @@ func PublishMessageTrue(c *gin.Context) {
 func ChangeMessageTrue(c *gin.Context) {
 	c.String(200, "留言修改成功")
 }
+
+func DeleteMessageTrue(c *gin.Context) {
+	c.String(200, "留言删除成功")
+}

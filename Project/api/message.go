@@ -25,3 +25,10 @@ func ChangeMessage(c *gin.Context) {
 	respond.ChangeMessageTrue(c)
 	dao.ChangeMessageDate(u, m)
 }
+
+// DeleteMessage 删除留言
+func DeleteMessage(c *gin.Context) {
+	u := service.GetUsername(c)
+	dao.DeleteMessageDate(u)
+	respond.DeleteMessageTrue(c)
+}

@@ -1,6 +1,8 @@
 package api
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+)
 
 // InterUser 用户接口
 func InterUser() {
@@ -24,6 +26,7 @@ func InterMessage() {
 	r.Group("message", func(c *gin.Context) {
 		r.POST("/publish_comment", PublishMessage)
 		r.PUT("/change_message", ChangeMessage)
+		r.DELETE("delete_message", DeleteMessage)
 	})
 	err := r.Run()
 	if err != nil {

@@ -27,6 +27,8 @@ func InterMessage() {
 		r.POST("/publish_comment", PublishMessage)
 		r.PUT("/change_message", ChangeMessage)
 		r.DELETE("delete_message", DeleteMessage)
+		r.POST("respond_message", RespondMessage)
+		r.GET("read_message", ReadMessage)
 	})
 	err := r.Run()
 	if err != nil {

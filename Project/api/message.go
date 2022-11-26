@@ -32,3 +32,31 @@ func DeleteMessage(c *gin.Context) {
 	dao.DeleteMessageDate(u)
 	respond.DeleteMessageTrue(c)
 }
+
+// RespondMessage 回复留言
+func RespondMessage(c *gin.Context) {
+	u, r := service.GetUsernameRespond(c)
+	dao.RespondMessageDate(u, r)
+	respond.ResMessageTrue(c)
+}
+
+// ReadMessage 查看留言回复
+func ReadMessage(c *gin.Context) {
+	u := service.GetUsername(c)
+	m := dao.TakeDate("message")
+	M, _ := m.(model.Messes)
+	var d model.Mess
+	ok := false
+	for _, date := range M {
+		if date.OwnerName == u {
+			d = date
+			ok = true
+		}
+	}
+	if ok {
+		respond.ReadMessageTrue(c, d)
+	} else {
+		respond.ReadMessageErr(c)
+	}
+
+}

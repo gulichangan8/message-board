@@ -1,6 +1,9 @@
 package respond
 
-import "github.com/gin-gonic/gin"
+import (
+	"Project/model"
+	"github.com/gin-gonic/gin"
+)
 
 func RegisterTrue(c *gin.Context) {
 	c.String(200, "注册成功")
@@ -48,4 +51,16 @@ func ChangeMessageTrue(c *gin.Context) {
 
 func DeleteMessageTrue(c *gin.Context) {
 	c.String(200, "留言删除成功")
+}
+
+func ResMessageTrue(c *gin.Context) {
+	c.String(200, "回复留言成功")
+}
+
+func ReadMessageTrue(c *gin.Context, mess model.Mess) {
+	c.JSON(200, mess)
+}
+
+func ReadMessageErr(c *gin.Context) {
+	c.String(200, "查看留言失败，用户名不存在")
 }

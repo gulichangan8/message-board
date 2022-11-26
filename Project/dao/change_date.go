@@ -19,7 +19,26 @@ func ChangePasswordDate(username string, password string) {
 func ChangeMessageDate(username string, message string) {
 	var dns = "root:040818@tcp(127.0.0.1:3306)/message_board?charset=utf8mb4&parseTime=True&loc=Local"
 	db, _ := sql.Open("mysql", dns)
-	_, err := db.Exec("update message set message=? where owner_name=?", message, username)
+	_, err := db.Exec("update message set message=? where write_name=?", message, username)
+	if err != nil {
+		return
+	}
+}
+
+func RespondMessageDate(username string, respond string) {
+	var dns = "root:040818@tcp(127.0.0.1:3306)/message_board?charset=utf8mb4&parseTime=True&loc=Local"
+	db, _ := sql.Open("mysql", dns)
+	_, err := db.Exec("update message set respond=? where owner_name=?", respond, username)
+	if err != nil {
+		return
+	}
+}
+
+// DeleteMessageDate 删除留言
+func DeleteMessageDate(username string) {
+	var dns = "root:040818@tcp(127.0.0.1:3306)/message_board?charset=utf8mb4&parseTime=True&loc=Local"
+	db, _ := sql.Open("mysql", dns)
+	_, err := db.Exec("update message set message=? where write_name=?", "留言已删除", username)
 	if err != nil {
 		return
 	}

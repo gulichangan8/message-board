@@ -29,14 +29,22 @@ func GetMessage(c *gin.Context) (string, string, string) {
 	return username, writeTo, message
 }
 
-// GetNewMessage 修改留言
+// GetNewMessage 获得修改的留言
 func GetNewMessage(c *gin.Context) (string, string) {
 	username := c.PostForm("username")
 	message := c.PostForm("message")
 	return username, message
 }
 
+// GetUsername 获得用户名
 func GetUsername(c *gin.Context) string {
 	username := c.PostForm("username")
 	return username
+}
+
+// GetUsernameRespond 获得用户名回复
+func GetUsernameRespond(c *gin.Context) (string, string) {
+	username := c.PostForm("username")
+	respond := c.PostForm("respond")
+	return username, respond
 }

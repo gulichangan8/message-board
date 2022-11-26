@@ -84,3 +84,11 @@ func ReadMessageErr(c *gin.Context) {
 func PublishProductionTrue(c *gin.Context) {
 	c.String(200, "作品发布成功")
 }
+
+func PublishCommentTrue(c *gin.Context) {
+	c.String(200, "评论发表成功")
+}
+
+func PublishCommentErr(c *gin.Context) {
+	c.String(200, "评论发表失败，未找到作者")
+}

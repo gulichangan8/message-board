@@ -114,3 +114,17 @@ func IfHaveSomeoneWriteTo(username string) bool {
 	}
 	return ok
 }
+
+func CheckAuthorExist(username string) bool {
+	c := dao.TakeDate("comment")
+	C, _ := c.(model.Comments)
+	ok := false
+	for _, date := range C {
+		if date.Author == username {
+			ok = true
+		} else {
+			continue
+		}
+	}
+	return ok
+}

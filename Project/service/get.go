@@ -48,3 +48,12 @@ func GetUsernameRespond(c *gin.Context) (string, string) {
 	respond := c.PostForm("respond")
 	return username, respond
 }
+
+// GetUsernameCommentWriteTo 获得用户名评论，作品作者
+func GetUsernameCommentWriteTo(c *gin.Context) (string, string) {
+	username := c.PostForm("username")
+	author := c.PostForm("write_to")
+	comment := c.PostForm("comment")
+	com := username + ":" + comment
+	return author, com
+}

@@ -34,7 +34,7 @@ func CheckPassword(password string) bool {
 
 // CheckLogin 登录账号检查
 func CheckLogin(username string, password string) bool {
-	U := dao.TakeDate("user", "user")
+	U := dao.TakeDate("user")
 	u, _ := U.(model.Users)
 	ok := false
 	for _, date := range u {
@@ -51,11 +51,12 @@ func CheckLogin(username string, password string) bool {
 	}
 }
 
+// PasswordProtect 密保问题是否回答正确
 func PasswordProtect(username string, trueName string, likeFood string, age int) bool {
-	M := dao.TakeDate("user", "message")
-	m, _ := M.(model.Queses)
+	Q := dao.TakeDate("question")
+	q, _ := Q.(model.Queses)
 	ok := false
-	for _, date := range m {
+	for _, date := range q {
 		if date.UserName == username && date.TrueName == trueName && date.LikeFood == likeFood && date.Age == age {
 			ok = true
 		} else {
@@ -67,4 +68,49 @@ func PasswordProtect(username string, trueName string, likeFood string, age int)
 	} else {
 		return false
 	}
+}
+
+// CheckUsernameExist 判断写给的人是否存在
+func CheckUsernameExist(username string) bool {
+	user := dao.TakeDate("user")
+	U, _ := user.(model.Users)
+	ok := false
+	for _, date := range U {
+		if date.Username == username {
+			ok = true
+		} else {
+			continue
+		}
+	}
+	return ok
+}
+
+// CheckWriterExist 判断是否留过言
+func CheckWriterExist(writer string) bool {
+	M := dao.TakeDate("message")
+	m, _ := M.(model.Messes)
+	ok := false
+	for _, date := range m {
+		if date.WriteName == writer {
+			ok = true
+		} else {
+			continue
+		}
+	}
+	return ok
+}
+
+// IfHaveSomeoneWriteTo 判断是否有人留过言
+func IfHaveSomeoneWriteTo(username string) bool {
+	M := dao.TakeDate("message")
+	m, _ := M.(model.Messes)
+	ok := false
+	for _, date := range m {
+		if date.OwnerName == username {
+			ok = true
+		} else {
+			continue
+		}
+	}
+	return ok
 }

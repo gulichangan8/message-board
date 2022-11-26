@@ -12,32 +12,52 @@ import (
 // PublishMessage 发表留言
 func PublishMessage(c *gin.Context) {
 	u, w, com := service.GetMessage(c)
-	Com := tool.CreateMess(w, u, com, "")
-	var C model.Use
-	C.Mess = Com
-	dao.BringDate("message", C)
-	respond.PublishMessageTrue(c)
+	ok := service.CheckUsernameExist(w)
+	if ok {
+		Com := tool.CreateMess(w, u, com, "")
+		var C model.Use
+		C.Mess = Com
+		dao.BringDate("message", C)
+		respond.PublishMessageTrue(c)
+	} else {
+		respond.PublishMessageErr(c)
+	}
 }
 
 // ChangeMessage 修改留言
 func ChangeMessage(c *gin.Context) {
 	u, m := service.GetNewMessage(c)
-	respond.ChangeMessageTrue(c)
-	dao.ChangeMessageDate(u, m)
+	ok := service.CheckWriterExist(u)
+	if ok {
+		respond.ChangeMessageTrue(c)
+		dao.ChangeMessageDate(u, m)
+	} else {
+		respond.ChangeMessageErr(c)
+	}
 }
 
 // DeleteMessage 删除留言
 func DeleteMessage(c *gin.Context) {
 	u := service.GetUsername(c)
-	dao.DeleteMessageDate(u)
-	respond.DeleteMessageTrue(c)
+	ok := service.CheckWriterExist(u)
+	if ok {
+		dao.DeleteMessageDate(u)
+		respond.DeleteMessageTrue(c)
+	} else {
+		respond.DeleteMessageErr(c)
+	}
 }
 
 // RespondMessage 回复留言
 func RespondMessage(c *gin.Context) {
 	u, r := service.GetUsernameRespond(c)
-	dao.RespondMessageDate(u, r)
-	respond.ResMessageTrue(c)
+	ok := service.IfHaveSomeoneWriteTo(u)
+	if ok {
+		dao.RespondMessageDate(u, r)
+		respond.ResMessageTrue(c)
+	} else {
+		respond.ResMessageErr(c)
+	}
 }
 
 // ReadMessage 查看留言回复

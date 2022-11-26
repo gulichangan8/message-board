@@ -45,16 +45,32 @@ func PublishMessageTrue(c *gin.Context) {
 	c.String(200, "留言发表成功")
 }
 
+func PublishMessageErr(c *gin.Context) {
+	c.String(200, "留言发表失败，查无此人")
+}
+
 func ChangeMessageTrue(c *gin.Context) {
 	c.String(200, "留言修改成功")
+}
+
+func ChangeMessageErr(c *gin.Context) {
+	c.String(200, "您还未发表过留言")
 }
 
 func DeleteMessageTrue(c *gin.Context) {
 	c.String(200, "留言删除成功")
 }
 
+func DeleteMessageErr(c *gin.Context) {
+	c.String(200, "您还未发表过留言")
+}
+
 func ResMessageTrue(c *gin.Context) {
 	c.String(200, "回复留言成功")
+}
+
+func ResMessageErr(c *gin.Context) {
+	c.String(200, "还未有人给您留过言")
 }
 
 func ReadMessageTrue(c *gin.Context, mess model.Mess) {

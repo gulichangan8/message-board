@@ -13,18 +13,5 @@ type Ques struct {
 	Age      int
 }
 
-type Use struct {
-	User struct {
-		Username string
-		Password string
-	}
-	Ques struct {
-		UserName string
-		TrueName string
-		LikeFood string
-		Age      int
-	}
-}
-
 type Users []User
 type Queses []Ques

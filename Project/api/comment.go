@@ -12,7 +12,7 @@ import (
 // PublishComment 发表评论
 func PublishComment(c *gin.Context) {
 	a, w, com := service.GetUsernameCommentWriteTo(c)
-	ok := service.CheckAuthorExist(w)
+	ok := service.CheckAuthorExist(a)
 	if ok {
 		C := tool.CreateComment(a, w, com)
 		var use model.Use
@@ -59,5 +59,20 @@ func ChangeGood(c *gin.Context) {
 		respond.ChangeGoodTrue(c)
 	} else {
 		respond.ChangeGoodErr(c)
+	}
+}
+
+// NoNameComment 匿名评论
+func NoNameComment(c *gin.Context) {
+	a, _, com := service.GetUsernameCommentWriteTo(c)
+	ok := service.CheckAuthorExist(a)
+	if ok {
+		C := tool.CreateComment(a, "", com)
+		var use model.Use
+		use.Comment = C
+		dao.BringDate("comment", use)
+		respond.PublishCommentTrue(c)
+	} else {
+		respond.PublishCommentErr(c)
 	}
 }

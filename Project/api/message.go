@@ -12,15 +12,20 @@ import (
 // PublishMessage 发表留言
 func PublishMessage(c *gin.Context) {
 	u, w, com := service.GetMessage(c)
-	ok := service.CheckUsernameExist(w)
-	if ok {
-		Com := tool.CreateMess(w, u, com, "")
-		var C model.Use
-		C.Mess = Com
-		dao.BringDate("message", C)
-		respond.PublishMessageTrue(c)
+	ok1 := service.CheckUsernameExist(w)
+	ok2 := service.CheckCommentLength(com)
+	if ok1 {
+		if ok2 {
+			Com := tool.CreateMess(w, u, com, "")
+			var C model.Use
+			C.Mess = Com
+			dao.BringDate("message", C)
+			respond.PublishMessageTrue(c)
+		} else {
+			respond.PublishMessageErr2(c)
+		}
 	} else {
-		respond.PublishMessageErr(c)
+		respond.PublishMessageErr1(c)
 	}
 }
 

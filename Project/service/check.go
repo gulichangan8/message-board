@@ -142,3 +142,12 @@ func CheckWriteExist(username string) bool {
 	}
 	return ok
 }
+
+func CheckCommentLength(comment string) bool {
+	var name = []rune(comment)
+	if len(name) > 100 {
+		return true
+	} else {
+		return false
+	}
+}

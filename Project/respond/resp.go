@@ -45,8 +45,12 @@ func PublishMessageTrue(c *gin.Context) {
 	c.String(200, "留言发表成功")
 }
 
-func PublishMessageErr(c *gin.Context) {
+func PublishMessageErr1(c *gin.Context) {
 	c.String(200, "留言发表失败，查无此人")
+}
+
+func PublishMessageErr2(c *gin.Context) {
+	c.String(200, "留言发表失败，留言字数超出规定长度")
 }
 
 func ChangeMessageTrue(c *gin.Context) {

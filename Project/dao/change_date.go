@@ -54,6 +54,7 @@ func ChangeCommentDate(comment string, username string) {
 	}
 }
 
+// ChangePersonalMessage 修改个人信息
 func ChangePersonalMessage(username string, age int, birthday float64, constellation string, sex string) {
 	var dns = "root:040818@tcp(127.0.0.1:3306)/message_board?charset=utf8mb4&parseTime=True&loc=Local"
 	db, _ := sql.Open("mysql", dns)

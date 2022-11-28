@@ -44,3 +44,11 @@ func CreateMessage(username string, age int, birthday float64, constellation str
 	C.Sex = sex
 	return C
 }
+
+func CreatePraise(author string, reader string, good bool) model.Praise {
+	var P model.Praise
+	P.Author = author
+	P.Reader = reader
+	P.Good = good
+	return P
+}

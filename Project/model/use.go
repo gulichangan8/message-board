@@ -29,4 +29,9 @@ type Use struct {
 		Constellation string
 		Sex           string
 	}
+	Praise struct {
+		Author string
+		Reader string
+		Good   bool
+	}
 }

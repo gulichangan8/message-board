@@ -47,3 +47,17 @@ func DeleteComment(c *gin.Context) {
 		respond.ChangeCommentErr(c)
 	}
 }
+
+// ChangeGood 改变点赞状态
+func ChangeGood(c *gin.Context) {
+	a, r, g := service.GetGood(c)
+	p := tool.CreatePraise(a, r, g)
+	var use model.Use
+	use.Praise = p
+	dao.BringDate("praise", use)
+	if g {
+		respond.ChangeGoodTrue(c)
+	} else {
+		respond.ChangeGoodErr(c)
+	}
+}

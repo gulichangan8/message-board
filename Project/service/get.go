@@ -67,3 +67,11 @@ func GetPersonalMessage(c *gin.Context) (string, int, float64, string, string) {
 	sex := c.PostForm("sex")
 	return username, age, birthday, constellation, sex
 }
+
+func GetGood(c *gin.Context) (string, string, bool) {
+	reader := c.PostForm("username")
+	author := c.PostForm("author")
+	g := c.PostForm("good")
+	good, _ := strconv.ParseBool(g)
+	return author, reader, good
+}

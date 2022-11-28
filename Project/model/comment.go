@@ -6,4 +6,11 @@ type Comment struct {
 	Comment string
 }
 
+type Praise struct {
+	Author string
+	Reader string
+	Good   bool
+}
+
 type Comments []Comment
+type Praises []Praise

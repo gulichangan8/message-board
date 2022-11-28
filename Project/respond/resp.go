@@ -108,3 +108,11 @@ func PersonalMessageTrue(c *gin.Context) {
 func ChangePersonalMessageTrue(c *gin.Context) {
 	c.String(200, "个人信息修改成功")
 }
+
+func ChangeGoodTrue(c *gin.Context) {
+	c.String(200, "点赞成功")
+}
+
+func ChangeGoodErr(c *gin.Context) {
+	c.String(200, "取消点赞成功")
+}

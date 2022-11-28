@@ -38,4 +38,8 @@ type Use struct {
 		Author string
 		Member int
 	}
+	Login struct {
+		Username string
+		Login    bool
+	}
 }

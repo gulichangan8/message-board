@@ -21,6 +21,12 @@ type Message struct {
 	Sex           string
 }
 
+type Login struct {
+	Username string
+	Login    bool
+}
+
 type Users []User
 type Queses []Ques
 type Messages []Message
+type Logins []Login

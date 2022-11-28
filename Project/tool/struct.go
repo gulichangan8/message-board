@@ -59,3 +59,10 @@ func CreateGood(author string, member int) model.Good {
 	G.Member = member
 	return G
 }
+
+func CreateLogin(username string, login bool) model.Login {
+	var L model.Login
+	L.Username = username
+	L.Login = login
+	return L
+}

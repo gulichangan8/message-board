@@ -124,3 +124,7 @@ func ChangeGoodErr(c *gin.Context) {
 func GetGoodMemberTrue(c *gin.Context, good model.Good) {
 	c.JSON(200, good)
 }
+
+func DeleteLoginTrue(c *gin.Context) {
+	c.String(200, "已退出登录")
+}

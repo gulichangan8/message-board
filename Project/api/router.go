@@ -15,6 +15,7 @@ func InterUser() {
 		r.PUT("/change_password", ChangePassword)
 		r.POST("/personal_message", PersonalMessage)
 		r.PUT("/change_personal_message", ChangePersonalMessage)
+		r.DELETE("logout", DeleteLogin)
 	})
 	err := r.Run()
 	if err != nil {

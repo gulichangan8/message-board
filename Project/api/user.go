@@ -29,8 +29,12 @@ func Register(c *gin.Context) {
 func Login(c *gin.Context) {
 	u, p := service.GetUsernamePassword(c)
 	ok := service.CheckLogin(u, p)
+	var use model.Use
 	if ok {
 		respond.LoginTrue(c)
+		l := tool.CreateLogin(u, true)
+		use.Login = l
+		dao.BringDate("login", use)
 	} else {
 		respond.LoginErr(c)
 	}
@@ -84,4 +88,11 @@ func ChangePersonalMessage(c *gin.Context) {
 	u, a, b, con, s := service.GetPersonalMessage(c)
 	dao.ChangePersonalMessage(u, a, b, con, s)
 	respond.ChangePersonalMessageTrue(c)
+}
+
+// DeleteLogin 注销登陆状态
+func DeleteLogin(c *gin.Context) {
+	u := service.GetUsername(c)
+	dao.ChangeLogin(u)
+	respond.DeleteLoginTrue(c)
 }

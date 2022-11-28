@@ -43,6 +43,10 @@ func InterMessage() {
 func InterPublishProduction() {
 	r := gin.Default()
 	r.POST("/publish_production", PublishProduction)
+	err := r.Run()
+	if err != nil {
+		return
+	}
 }
 
 // InterComment 评论作品接口

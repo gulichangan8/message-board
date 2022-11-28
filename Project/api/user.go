@@ -14,7 +14,8 @@ func Register(c *gin.Context) {
 	u, p := service.GetUsernamePassword(c)
 	ok1 := service.CheckUsername(u)
 	ok2 := service.CheckPassword(p)
-	U := tool.CreateUser(u, p)
+	P := service.Hmac("a", p)
+	U := tool.CreateUser(u, P)
 	var use model.Use
 	use.User = U
 	if ok1 && ok2 {
@@ -28,7 +29,8 @@ func Register(c *gin.Context) {
 // Login 登录接口
 func Login(c *gin.Context) {
 	u, p := service.GetUsernamePassword(c)
-	ok := service.CheckLogin(u, p)
+	P := service.Hmac("a", p)
+	ok := service.CheckLogin(u, P)
 	var use model.Use
 	if ok {
 		respond.LoginTrue(c)

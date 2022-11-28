@@ -120,3 +120,7 @@ func ChangeGoodTrue(c *gin.Context) {
 func ChangeGoodErr(c *gin.Context) {
 	c.String(200, "取消点赞成功")
 }
+
+func GetGoodMemberTrue(c *gin.Context, good model.Good) {
+	c.JSON(200, good)
+}

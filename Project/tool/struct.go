@@ -52,3 +52,10 @@ func CreatePraise(author string, reader string, good bool) model.Praise {
 	P.Good = good
 	return P
 }
+
+func CreateGood(author string, member int) model.Good {
+	var G model.Good
+	G.Author = author
+	G.Member = member
+	return G
+}

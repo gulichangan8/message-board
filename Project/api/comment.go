@@ -76,3 +76,23 @@ func NoNameComment(c *gin.Context) {
 		respond.PublishCommentErr(c)
 	}
 }
+
+// GetGoodMember 查看点赞数
+func GetGoodMember(c *gin.Context) {
+	member := 0
+	use := dao.TakeDate("praise")
+	a := service.GetUsername(c)
+	u, _ := use.(model.Praises)
+	for _, date := range u {
+		if date.Author == a && date.Good {
+			member++
+		} else {
+			continue
+		}
+	}
+	g := tool.CreateGood(a, member)
+	var good model.Use
+	good.Good = g
+	dao.BringDate("good-member", good)
+	respond.GetGoodMemberTrue(c, g)
+}

@@ -53,6 +53,7 @@ func InterComment() {
 		r.DELETE("/delete", DeleteComment)
 		r.PUT("/good", ChangeGood)
 		r.POST("noname_comment", NoNameComment)
+		r.GET("good_member", GetGoodMember)
 	})
 	err := r.Run()
 	if err != nil {

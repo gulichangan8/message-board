@@ -20,6 +20,8 @@ func TakeDate(form string) (date interface{}) {
 	var P model.Messages
 	var g model.Praise
 	var G model.Praises
+	var o model.Good
+	var O model.Goods
 	var dns = "root:040818@tcp(127.0.0.1:3306)/message_board?charset=utf8mb4&parseTime=True&loc=Local"
 	db, _ := sql.Open("mysql", dns)
 	rows, _ := db.Query("select * from ?", form)
@@ -79,6 +81,15 @@ func TakeDate(form string) (date interface{}) {
 			G = append(G, g)
 			date = G
 		}
+	case "good-member":
+		for rows.Next() {
+			err := rows.Scan(&o.Author, &o.Member)
+			if err != nil {
+				return
+			}
+			O = append(O, o)
+			date = O
+		}
 	default:
 		break
 	}
@@ -94,6 +105,7 @@ func BringDate(form string, U model.Use) {
 	c := U.Comment
 	p := U.Message
 	g := U.Praise
+	o := U.Good
 	db, _ := sql.Open("mysql", dns)
 	//表分类
 	switch form {
@@ -130,6 +142,12 @@ func BringDate(form string, U model.Use) {
 	case "praise":
 		_, err := db.Exec("insert into ? (author,reader,good) value (?,?,?)",
 			form, g.Author, g.Reader, g.Good)
+		if err != nil {
+			return
+		}
+	case "good-member":
+		_, err := db.Exec("insert into ? (author,member) value (?,?)",
+			form, o.Author, o.Member)
 		if err != nil {
 			return
 		}

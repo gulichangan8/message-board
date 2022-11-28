@@ -34,4 +34,8 @@ type Use struct {
 		Reader string
 		Good   bool
 	}
+	Good struct {
+		Author string
+		Member int
+	}
 }

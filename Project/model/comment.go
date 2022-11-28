@@ -12,5 +12,11 @@ type Praise struct {
 	Good   bool
 }
 
+type Good struct {
+	Author string
+	Member int
+}
+
 type Comments []Comment
 type Praises []Praise
+type Goods []Good

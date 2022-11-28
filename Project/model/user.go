@@ -13,5 +13,14 @@ type Ques struct {
 	Age      int
 }
 
+type Message struct {
+	Username      string
+	Age           int
+	Birthday      float64
+	Constellation string
+	Sex           string
+}
+
 type Users []User
 type Queses []Ques
+type Messages []Message

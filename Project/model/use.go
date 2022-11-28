@@ -22,4 +22,11 @@ type Use struct {
 		Writer  string
 		Comment string
 	}
+	Message struct {
+		Username      string
+		Age           int
+		Birthday      float64
+		Constellation string
+		Sex           string
+	}
 }

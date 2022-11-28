@@ -13,6 +13,8 @@ func InterUser() {
 		r.POST("/question", Question)
 		r.POST("/answer_question", AnswerQuestion)
 		r.PUT("/change_password", ChangePassword)
+		r.POST("/personal_message", PersonalMessage)
+		r.PUT("/change_personal_message", ChangePersonalMessage)
 	})
 	err := r.Run()
 	if err != nil {
@@ -23,12 +25,12 @@ func InterUser() {
 // InterMessage 留言接口
 func InterMessage() {
 	r := gin.Default()
-	r.Group("message", func(c *gin.Context) {
+	r.Group("/message", func(c *gin.Context) {
 		r.POST("/publish", PublishMessage)
 		r.PUT("/change", ChangeMessage)
-		r.DELETE("delete", DeleteMessage)
-		r.POST("respond", RespondMessage)
-		r.GET("read", ReadMessage)
+		r.DELETE("/delete", DeleteMessage)
+		r.POST("/respond", RespondMessage)
+		r.GET("/read", ReadMessage)
 	})
 	err := r.Run()
 	if err != nil {
@@ -39,16 +41,16 @@ func InterMessage() {
 // InterPublishProduction 发布作品接口
 func InterPublishProduction() {
 	r := gin.Default()
-	r.POST("publish_production", PublishProduction)
+	r.POST("/publish_production", PublishProduction)
 }
 
 // InterComment 评论作品接口
 func InterComment() {
 	r := gin.Default()
-	r.Group("comment", func(c *gin.Context) {
-		r.POST("publish", PublishComment)
-		r.PUT("change", ChangeComment)
-		r.DELETE("delete", DeleteComment)
+	r.Group("/comment", func(c *gin.Context) {
+		r.POST("/publish", PublishComment)
+		r.PUT("/change", ChangeComment)
+		r.DELETE("/delete", DeleteComment)
 	})
 	err := r.Run()
 	if err != nil {

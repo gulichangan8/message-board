@@ -34,3 +34,13 @@ func CreateComment(author string, writer string, comment string) model.Comment {
 	C.Comment = comment
 	return C
 }
+
+func CreateMessage(username string, age int, birthday float64, constellation string, sex string) model.Message {
+	var C model.Message
+	C.Username = username
+	C.Age = age
+	C.Birthday = birthday
+	C.Constellation = constellation
+	C.Sex = sex
+	return C
+}

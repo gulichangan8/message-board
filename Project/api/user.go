@@ -68,3 +68,20 @@ func ChangePassword(c *gin.Context) {
 		respond.ChangePasswordErr(c)
 	}
 }
+
+// PersonalMessage 注册个人信息
+func PersonalMessage(c *gin.Context) {
+	u, a, b, con, s := service.GetPersonalMessage(c)
+	p := tool.CreateMessage(u, a, b, con, s)
+	var P model.Use
+	P.Message = p
+	dao.BringDate("person", P)
+	respond.PersonalMessageTrue(c)
+}
+
+// ChangePersonalMessage 更改个人信息
+func ChangePersonalMessage(c *gin.Context) {
+	u, a, b, con, s := service.GetPersonalMessage(c)
+	dao.ChangePersonalMessage(u, a, b, con, s)
+	respond.ChangePersonalMessageTrue(c)
+}

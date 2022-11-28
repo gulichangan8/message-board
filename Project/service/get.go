@@ -56,3 +56,14 @@ func GetUsernameCommentWriteTo(c *gin.Context) (string, string, string) {
 	comment := c.PostForm("comment")
 	return author, username, comment
 }
+
+// GetPersonalMessage 获得个人信息
+func GetPersonalMessage(c *gin.Context) (string, int, float64, string, string) {
+	username := c.PostForm("username")
+	age, _ := strconv.Atoi(c.PostForm("age"))
+	b, _ := strconv.Atoi(c.PostForm("age"))
+	birthday := float64(b)
+	constellation := c.PostForm("constellation")
+	sex := c.PostForm("sex")
+	return username, age, birthday, constellation, sex
+}

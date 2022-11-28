@@ -100,3 +100,11 @@ func ChangeCommentTrue(c *gin.Context) {
 func ChangeCommentErr(c *gin.Context) {
 	c.String(200, "未找到评论")
 }
+
+func PersonalMessageTrue(c *gin.Context) {
+	c.String(200, "个人信息保存成功")
+}
+
+func ChangePersonalMessageTrue(c *gin.Context) {
+	c.String(200, "个人信息修改成功")
+}

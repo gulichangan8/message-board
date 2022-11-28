@@ -16,6 +16,8 @@ func TakeDate(form string) (date interface{}) {
 	var M model.Messes
 	var c model.Comment
 	var C model.Comments
+	var p model.Message
+	var P model.Messages
 	var dns = "root:040818@tcp(127.0.0.1:3306)/message_board?charset=utf8mb4&parseTime=True&loc=Local"
 	db, _ := sql.Open("mysql", dns)
 	rows, _ := db.Query("select * from ?", form)
@@ -50,12 +52,21 @@ func TakeDate(form string) (date interface{}) {
 		}
 	case "comment":
 		for rows.Next() {
-			err := rows.Scan(&c.Author, &c.WriterAndMessage)
+			err := rows.Scan(&c.Author, &c.Writer, &c.Comment)
 			if err != nil {
 				return
 			}
 			C = append(C, c)
 			date = C
+		}
+	case "person":
+		for rows.Next() {
+			err := rows.Scan(&p.Username, &p.Age, &p.Birthday, &p.Constellation, &p.Sex)
+			if err != nil {
+				return
+			}
+			P = append(P, p)
+			date = P
 		}
 	default:
 		break
@@ -70,6 +81,7 @@ func BringDate(form string, U model.Use) {
 	q := U.Ques
 	m := U.Mess
 	c := U.Comment
+	p := U.Message
 	db, _ := sql.Open("mysql", dns)
 	//表分类
 	switch form {
@@ -92,8 +104,14 @@ func BringDate(form string, U model.Use) {
 			return
 		}
 	case "comment":
-		_, err := db.Exec("insert into ? (author,writer_message) value (?,?)",
-			form, c.Author, c.WriterAndMessage)
+		_, err := db.Exec("insert into ? (author,writer,comment) value (?,?)",
+			form, c.Author, c.Writer, c.Comment)
+		if err != nil {
+			return
+		}
+	case "person":
+		_, err := db.Exec("insert into ? (username,age,birthday,constellation,sex) value (?,?)",
+			form, p.Username, p.Age, p.Birthday, p.Constellation, p.Sex)
 		if err != nil {
 			return
 		}

@@ -11,10 +11,10 @@ import (
 
 // PublishComment 发表评论
 func PublishComment(c *gin.Context) {
-	w, com := service.GetUsernameCommentWriteTo(c)
+	a, w, com := service.GetUsernameCommentWriteTo(c)
 	ok := service.CheckAuthorExist(w)
 	if ok {
-		C := tool.CreateComment(w, com)
+		C := tool.CreateComment(a, w, com)
 		var use model.Use
 		use.Comment = C
 		dao.BringDate("comment", use)
@@ -26,13 +26,24 @@ func PublishComment(c *gin.Context) {
 
 // ChangeComment 修改评论
 func ChangeComment(c *gin.Context) {
-	w, com := service.GetUsernameCommentWriteTo(c)
-	ok := service.CheckAuthorExist(w)
+	a, w, com := service.GetUsernameCommentWriteTo(c)
+	ok := service.CheckAuthorExist(a) && service.CheckWriteExist(w)
 	if ok {
-		dao.ChangeCommentDate(com, w)
+		dao.ChangeCommentDate(com, a)
 		respond.ChangeCommentTrue(c)
 	} else {
 		respond.ChangeCommentErr(c)
 	}
+}
 
+// DeleteComment 删除评论
+func DeleteComment(c *gin.Context) {
+	w := service.GetUsername(c)
+	ok := service.CheckAuthorExist(w)
+	if ok {
+		dao.ChangeCommentDate("", w)
+		respond.ChangeCommentTrue(c)
+	} else {
+		respond.ChangeCommentErr(c)
+	}
 }

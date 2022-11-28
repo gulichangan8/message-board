@@ -48,6 +48,7 @@ func InterComment() {
 	r.Group("comment", func(c *gin.Context) {
 		r.POST("publish", PublishComment)
 		r.PUT("change", ChangeComment)
+		r.DELETE("delete", DeleteComment)
 	})
 	err := r.Run()
 	if err != nil {

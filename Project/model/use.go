@@ -18,7 +18,8 @@ type Use struct {
 		Respond   string
 	}
 	Comment struct {
-		Author           string
-		WriterAndMessage string
+		Author  string
+		Writer  string
+		Comment string
 	}
 }

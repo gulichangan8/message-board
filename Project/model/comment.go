@@ -1,8 +1,9 @@
 package model
 
 type Comment struct {
-	Author           string
-	WriterAndMessage string
+	Author  string
+	Writer  string
+	Comment string
 }
 
 type Comments []Comment

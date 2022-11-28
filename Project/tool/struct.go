@@ -27,9 +27,10 @@ func CreateQues(userName string, trueName string, likeFood string, age int) mode
 	return Q
 }
 
-func CreateComment(author string, WriterAndMessage string) model.Comment {
+func CreateComment(author string, writer string, comment string) model.Comment {
 	var C model.Comment
 	C.Author = author
-	C.WriterAndMessage = WriterAndMessage
+	C.Writer = writer
+	C.Comment = comment
 	return C
 }

@@ -59,6 +59,8 @@ func InterComment() {
 		r.PUT("/good", ChangeGood)
 		r.POST("noname_comment", NoNameComment)
 		r.GET("good_member", GetGoodMember)
+		r.GET("comments", GetAuthorComment)
+		r.POST("publish_comments", PublishComments)
 	})
 	err := r.Run()
 	if err != nil {

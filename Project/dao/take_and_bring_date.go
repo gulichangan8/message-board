@@ -2,11 +2,12 @@ package dao
 
 import (
 	"Project/model"
+	"Project/tool"
 	"database/sql"
 	_ "github.com/go-sql-driver/mysql"
 )
 
-// TakeDate 取出数据库user中form表中的数据
+// TakeDate 取出数据库中form表中的数据
 func TakeDate(form string) (date interface{}) {
 	var u model.User
 	var q model.Ques
@@ -110,6 +111,7 @@ func TakeDate(form string) (date interface{}) {
 // BringDate 将数据存入数据库
 func BringDate(form string, U model.Use) {
 	var dns = "root:040818@tcp(127.0.0.1:3306)/message_board?charset=utf8mb4&parseTime=True&loc=Local"
+	db, _ := sql.Open("mysql", dns)
 	u := U.User
 	q := U.Ques
 	m := U.Mess
@@ -118,7 +120,6 @@ func BringDate(form string, U model.Use) {
 	g := U.Praise
 	o := U.Good
 	l := U.Login
-	db, _ := sql.Open("mysql", dns)
 	//表分类
 	switch form {
 	case "user":
@@ -171,5 +172,43 @@ func BringDate(form string, U model.Use) {
 		}
 	default:
 		break
+	}
+}
+
+// TakeOutAuthorComment 将comments表中对应作者的评论数据按照级别依次取出
+func TakeOutAuthorComment(author string) model.BiTree {
+	var dns = "root:040818@tcp(127.0.0.1:3306)/message_board?charset=utf8mb4&parseTime=True&loc=Local"
+	db, _ := sql.Open("mysql", dns)
+	rows1, _ := db.Query("select * from comments where author=?", author)
+	var id1 []int
+	var bt model.BtNode
+	var bi model.BiTree
+	var com model.Com
+	var comes []model.Com
+	for rows1.Next() {
+		err := rows1.Scan(&bt.Id, &bt.ParentId, &bt.Author, &bt.Writer, &bt.Comment)
+		if err != nil {
+			break
+		}
+		id1 = append(id1, bt.Id)
+		com.Id = bt.Id
+		com.Author = bt.Author
+		com.Writer = bt.Writer
+		com.Comments = bt.Comment
+		comes = append(comes, com)
+		bi.Root = &comes
+	}
+	_, bi = tool.Tree(id1)
+	return bi
+}
+
+// BringComments 将数据存入comments表，id自动加一
+func BringComments(parentId int, author string, writer string, comment string) {
+	var dns = "root:040818@tcp(127.0.0.1:3306)/message_board?charset=utf8mb4&parseTime=True&loc=Local"
+	db, _ := sql.Open("mysql", dns)
+	_, err := db.Exec("insert into comments (parent_id,author,writer,comment) value (?,?,?,?)",
+		parentId, author, writer, comment)
+	if err != nil {
+		return
 	}
 }

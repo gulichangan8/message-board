@@ -128,3 +128,7 @@ func GetGoodMemberTrue(c *gin.Context, good model.Good) {
 func DeleteLoginTrue(c *gin.Context) {
 	c.String(200, "已退出登录")
 }
+
+func GetAuthorCommentTrue(c *gin.Context, bi model.BiTree) {
+	c.JSON(200, &bi)
+}

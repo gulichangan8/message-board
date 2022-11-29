@@ -1,6 +1,8 @@
 package service
 
 import (
+	"Project/dao"
+	"Project/model"
 	"github.com/gin-gonic/gin"
 	"strconv"
 )
@@ -68,10 +70,26 @@ func GetPersonalMessage(c *gin.Context) (string, int, float64, string, string) {
 	return username, age, birthday, constellation, sex
 }
 
+// GetGood 获得点赞信息
 func GetGood(c *gin.Context) (string, string, bool) {
 	reader := c.PostForm("username")
 	author := c.PostForm("author")
 	g := c.PostForm("good")
 	good, _ := strconv.ParseBool(g)
 	return author, reader, good
+}
+
+// GetAuthorComment 获得该作者下的所有评论
+func GetAuthorComment(c *gin.Context) model.BiTree {
+	author := c.PostForm("author")
+	bi := dao.TakeOutAuthorComment(author)
+	return bi
+}
+
+func GetCom(c *gin.Context) (int, string, string, string) {
+	parentId, _ := strconv.Atoi(c.PostForm("id"))
+	comment := c.PostForm("comment")
+	writer := c.PostForm("username")
+	author := c.PostForm("author")
+	return parentId, author, writer, comment
 }

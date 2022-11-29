@@ -86,10 +86,25 @@ func GetAuthorComment(c *gin.Context) model.BiTree {
 	return bi
 }
 
+// GetCom 获得com结构体内容
 func GetCom(c *gin.Context) (int, string, string, string) {
 	parentId, _ := strconv.Atoi(c.PostForm("id"))
 	comment := c.PostForm("comment")
 	writer := c.PostForm("username")
 	author := c.PostForm("author")
 	return parentId, author, writer, comment
+}
+
+// GetWriterCom 获得当前用户发表过的评论
+func GetWriterCom(c *gin.Context) []model.Com {
+	username := c.PostForm("username")
+	com := dao.TakeOutId(username)
+	return com
+}
+
+// GetWriterId 获得想修改评论的id
+func GetWriterId(c *gin.Context) (int, string) {
+	id, _ := strconv.Atoi(c.PostForm("id"))
+	com := c.PostForm("comment")
+	return id, com
 }

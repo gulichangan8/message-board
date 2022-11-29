@@ -9,6 +9,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// 此处皆为一级评论，parent-id自动为1
+
 // PublishComment 发表评论
 func PublishComment(c *gin.Context) {
 	a, w, com := service.GetUsernameCommentWriteTo(c)

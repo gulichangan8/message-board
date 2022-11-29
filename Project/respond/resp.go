@@ -132,3 +132,7 @@ func DeleteLoginTrue(c *gin.Context) {
 func GetAuthorCommentTrue(c *gin.Context, bi model.BiTree) {
 	c.JSON(200, &bi)
 }
+
+func GetMyCommentTrue(c *gin.Context, com []model.Com) {
+	c.JSON(200, com)
+}

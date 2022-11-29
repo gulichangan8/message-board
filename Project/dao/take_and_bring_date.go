@@ -57,7 +57,7 @@ func TakeDate(form string) (date interface{}) {
 			M = append(M, m)
 			date = M
 		}
-	case "comment":
+	case "comments":
 		for rows.Next() {
 			err := rows.Scan(&c.Author, &c.Writer, &c.Comment)
 			if err != nil {
@@ -140,7 +140,7 @@ func BringDate(form string, U model.Use) {
 		if err != nil {
 			return
 		}
-	case "comment":
+	case "comments":
 		_, err := db.Exec("insert into ? (author,writer,comment) value (?,?,?)",
 			form, c.Author, c.Writer, c.Comment)
 		if err != nil {
@@ -180,7 +180,7 @@ func TakeOutAuthorComment(author string) model.BiTree {
 	var dns = "root:040818@tcp(127.0.0.1:3306)/message_board?charset=utf8mb4&parseTime=True&loc=Local"
 	db, _ := sql.Open("mysql", dns)
 	rows1, _ := db.Query("select * from comments where author=?", author)
-	var id1 []int
+	var id []int
 	var bt model.BtNode
 	var bi model.BiTree
 	var com model.Com
@@ -190,7 +190,7 @@ func TakeOutAuthorComment(author string) model.BiTree {
 		if err != nil {
 			break
 		}
-		id1 = append(id1, bt.Id)
+		id = append(id, bt.Id)
 		com.Id = bt.Id
 		com.Author = bt.Author
 		com.Writer = bt.Writer
@@ -198,7 +198,7 @@ func TakeOutAuthorComment(author string) model.BiTree {
 		comes = append(comes, com)
 		bi.Root = &comes
 	}
-	_, bi = tool.Tree(id1)
+	_, bi = tool.Tree(id)
 	return bi
 }
 
@@ -211,4 +211,25 @@ func BringComments(parentId int, author string, writer string, comment string) {
 	if err != nil {
 		return
 	}
+}
+
+func TakeOutId(writer string) []model.Com {
+	var dns = "root:040818@tcp(127.0.0.1:3306)/message_board?charset=utf8mb4&parseTime=True&loc=Local"
+	db, _ := sql.Open("mysql", dns)
+	rows, _ := db.Query("select * from comments where writer=?", writer)
+	var bt model.BtNode
+	var com model.Com
+	var comes []model.Com
+	for rows.Next() {
+		err := rows.Scan(&bt.Id, &bt.ParentId, &bt.Author, &bt.Writer, &bt.Comment)
+		if err != nil {
+			break
+		}
+		com.Id = bt.Id
+		com.Author = bt.Author
+		com.Writer = bt.Writer
+		com.Comments = bt.Comment
+		comes = append(comes, com)
+	}
+	return comes
 }

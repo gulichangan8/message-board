@@ -53,14 +53,20 @@ func InterPublishProduction() {
 func InterComment() {
 	r := gin.Default()
 	r.Group("/comment", func(c *gin.Context) {
+		//以下是原表格（comment）评论（懒得删了,函数一层一层的太多啦）
 		r.POST("/publish", PublishComment)
 		r.PUT("/change", ChangeComment)
 		r.DELETE("/delete", DeleteComment)
-		r.PUT("/good", ChangeGood)
 		r.POST("noname_comment", NoNameComment)
+		//这两个不受comment影响
+		r.PUT("/good", ChangeGood)
 		r.GET("good_member", GetGoodMember)
+		//以下是comments嵌套评论
+		r.POST("/publish", PublishComment)
 		r.GET("comments", GetAuthorComment)
 		r.POST("publish_comments", PublishComments)
+		r.GET("my_comments", GetMyComment)
+		r.PUT("/change", ChangeComments)
 	})
 	err := r.Run()
 	if err != nil {

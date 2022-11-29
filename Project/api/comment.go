@@ -44,7 +44,7 @@ func DeleteComment(c *gin.Context) {
 	ok := service.CheckAuthorExist(w)
 	if ok {
 		dao.ChangeCommentDate("", w)
-		respond.ChangeCommentTrue(c)
+		respond.DeleteCommentTrue(c)
 	} else {
 		respond.ChangeCommentErr(c)
 	}

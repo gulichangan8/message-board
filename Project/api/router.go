@@ -67,6 +67,7 @@ func InterComment() {
 		r.POST("publish_comments", PublishComments)
 		r.GET("my_comments", GetMyComment)
 		r.PUT("/change", ChangeComments)
+		r.DELETE("/delete", DeleteComments)
 	})
 	err := r.Run()
 	if err != nil {

@@ -32,3 +32,10 @@ func ChangeComments(c *gin.Context) {
 	dao.ChangeComments(id, com)
 	respond.ChangeCommentTrue(c)
 }
+
+// DeleteComments 删除评论
+func DeleteComments(c *gin.Context) {
+	id, _ := service.GetWriterId(c)
+	dao.ChangeComments(id, "评论已被删除")
+	respond.DeleteCommentTrue(c)
+}

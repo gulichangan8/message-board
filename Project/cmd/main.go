@@ -1,10 +1,11 @@
 package main
 
-import "Project/api"
+import (
+	"Project/api"
+	"Project/dao"
+)
 
 func main() {
-	api.InterUser()
-	api.InterMessage()
-	api.InterPublishProduction()
-	api.InterComment()
+	dao.InitMySql()
+	api.InitEngine()
 }

@@ -2,7 +2,6 @@ package service
 
 import (
 	"Project/dao"
-	"Project/model"
 )
 
 // CheckUsername 检查用户名格式
@@ -34,10 +33,9 @@ func CheckPassword(password string) bool {
 
 // CheckLogin 登录账号检查
 func CheckLogin(username string, password string) bool {
-	U := dao.TakeDate("user")
-	u, _ := U.(model.Users)
+	U := dao.TakeUserDate()
 	ok := false
-	for _, date := range u {
+	for _, date := range U {
 		if date.Username == username && date.Password == password {
 			ok = true
 		} else {
@@ -53,10 +51,9 @@ func CheckLogin(username string, password string) bool {
 
 // PasswordProtect 密保问题是否回答正确
 func PasswordProtect(username string, trueName string, likeFood string, age int) bool {
-	Q := dao.TakeDate("question")
-	q, _ := Q.(model.Queses)
+	Q := dao.TakeQuestionDate()
 	ok := false
-	for _, date := range q {
+	for _, date := range Q {
 		if date.UserName == username && date.TrueName == trueName && date.LikeFood == likeFood && date.Age == age {
 			ok = true
 		} else {
@@ -72,10 +69,9 @@ func PasswordProtect(username string, trueName string, likeFood string, age int)
 
 // CheckUsernameExist 判断写给的人是否存在
 func CheckUsernameExist(username string) bool {
-	user := dao.TakeDate("user")
-	U, _ := user.(model.Users)
+	user := dao.TakeUserDate()
 	ok := false
-	for _, date := range U {
+	for _, date := range user {
 		if date.Username == username {
 			ok = true
 		} else {
@@ -87,10 +83,9 @@ func CheckUsernameExist(username string) bool {
 
 // CheckWriterExist 判断是否留过言
 func CheckWriterExist(writer string) bool {
-	M := dao.TakeDate("message")
-	m, _ := M.(model.Messes)
+	M := dao.TakeMessageDate()
 	ok := false
-	for _, date := range m {
+	for _, date := range M {
 		if date.WriteName == writer {
 			ok = true
 		} else {
@@ -102,10 +97,9 @@ func CheckWriterExist(writer string) bool {
 
 // IfHaveSomeoneWriteTo 判断是否有人留过言
 func IfHaveSomeoneWriteTo(username string) bool {
-	M := dao.TakeDate("message")
-	m, _ := M.(model.Messes)
+	M := dao.TakeMessageDate()
 	ok := false
-	for _, date := range m {
+	for _, date := range M {
 		if date.OwnerName == username {
 			ok = true
 		} else {
@@ -116,10 +110,9 @@ func IfHaveSomeoneWriteTo(username string) bool {
 }
 
 func CheckAuthorExist(username string) bool {
-	c := dao.TakeDate("comment")
-	C, _ := c.(model.Comments)
+	c := dao.TakeCommentDate()
 	ok := false
-	for _, date := range C {
+	for _, date := range c {
 		if date.Author == username {
 			ok = true
 		} else {
@@ -130,10 +123,9 @@ func CheckAuthorExist(username string) bool {
 }
 
 func CheckWriteExist(username string) bool {
-	c := dao.TakeDate("comment")
-	C, _ := c.(model.Comments)
+	c := dao.TakeCommentDate()
 	ok := false
-	for _, date := range C {
+	for _, date := range c {
 		if date.Writer == username {
 			ok = true
 		} else {

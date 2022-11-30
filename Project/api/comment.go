@@ -2,7 +2,6 @@ package api
 
 import (
 	"Project/dao"
-	"Project/model"
 	"Project/respond"
 	"Project/service"
 	"Project/tool"
@@ -17,9 +16,7 @@ func PublishComment(c *gin.Context) {
 	ok := service.CheckAuthorExist(a)
 	if ok {
 		C := tool.CreateComment(a, w, com)
-		var use model.Use
-		use.Comment = C
-		dao.BringDate("comment", use)
+		dao.BringCommentDate(C)
 		respond.PublishCommentTrue(c)
 	} else {
 		respond.PublishCommentErr(c)
@@ -54,9 +51,7 @@ func DeleteComment(c *gin.Context) {
 func ChangeGood(c *gin.Context) {
 	a, r, g := service.GetGood(c)
 	p := tool.CreatePraise(a, r, g)
-	var use model.Use
-	use.Praise = p
-	dao.BringDate("praise", use)
+	dao.BringPraiseDate(p)
 	if g {
 		respond.ChangeGoodTrue(c)
 	} else {
@@ -70,9 +65,7 @@ func NoNameComment(c *gin.Context) {
 	ok := service.CheckAuthorExist(a)
 	if ok {
 		C := tool.CreateComment(a, "", com)
-		var use model.Use
-		use.Comment = C
-		dao.BringDate("comment", use)
+		dao.BringCommentDate(C)
 		respond.PublishCommentTrue(c)
 	} else {
 		respond.PublishCommentErr(c)
@@ -82,10 +75,9 @@ func NoNameComment(c *gin.Context) {
 // GetGoodMember 查看点赞数
 func GetGoodMember(c *gin.Context) {
 	member := 0
-	use := dao.TakeDate("praise")
+	p := dao.TakePraiseDate()
 	a := service.GetUsername(c)
-	u, _ := use.(model.Praises)
-	for _, date := range u {
+	for _, date := range p {
 		if date.Author == a && date.Good {
 			member++
 		} else {
@@ -93,8 +85,6 @@ func GetGoodMember(c *gin.Context) {
 		}
 	}
 	g := tool.CreateGood(a, member)
-	var good model.Use
-	good.Good = g
-	dao.BringDate("good-member", good)
+	dao.BringGoodMemberDate(g)
 	respond.GetGoodMemberTrue(c, g)
 }

@@ -2,7 +2,6 @@ package api
 
 import (
 	"Project/dao"
-	"Project/model"
 	"Project/respond"
 	"Project/service"
 	"Project/tool"
@@ -16,11 +15,9 @@ func Register(c *gin.Context) {
 	ok2 := service.CheckPassword(p)
 	P := service.Hmac("a", p)
 	U := tool.CreateUser(u, P)
-	var use model.Use
-	use.User = U
 	if ok1 && ok2 {
 		respond.RegisterTrue(c)
-		dao.BringDate("user", use)
+		dao.BringUserDate(U)
 	} else {
 		respond.RegisterErr(c)
 	}
@@ -31,12 +28,10 @@ func Login(c *gin.Context) {
 	u, p := service.GetUsernamePassword(c)
 	P := service.Hmac("a", p)
 	ok := service.CheckLogin(u, P)
-	var use model.Use
 	if ok {
 		respond.LoginTrue(c)
 		l := tool.CreateLogin(u, true)
-		use.Login = l
-		dao.BringDate("login", use)
+		dao.BringLoginDate(l)
 	} else {
 		respond.LoginErr(c)
 	}
@@ -46,9 +41,7 @@ func Login(c *gin.Context) {
 func Question(c *gin.Context) {
 	u, t, l, a := service.GetQuestion(c)
 	q := tool.CreateQues(u, t, l, a)
-	var Q model.Use
-	Q.Ques = q
-	dao.BringDate("message", Q)
+	dao.BringQuestionDate(q)
 	respond.QuestionTrue(c)
 }
 
@@ -79,9 +72,7 @@ func ChangePassword(c *gin.Context) {
 func PersonalMessage(c *gin.Context) {
 	u, a, b, con, s := service.GetPersonalMessage(c)
 	p := tool.CreateMessage(u, a, b, con, s)
-	var P model.Use
-	P.Message = p
-	dao.BringDate("person", P)
+	dao.BringPersonDate(p)
 	respond.PersonalMessageTrue(c)
 }
 

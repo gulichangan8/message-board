@@ -17,9 +17,7 @@ func PublishMessage(c *gin.Context) {
 	if ok1 {
 		if ok2 {
 			Com := tool.CreateMess(w, u, com, "")
-			var C model.Use
-			C.Mess = Com
-			dao.BringDate("message", C)
+			dao.BringMessageDate(Com)
 			respond.PublishMessageTrue(c)
 		} else {
 			respond.PublishMessageErr2(c)
@@ -68,11 +66,10 @@ func RespondMessage(c *gin.Context) {
 // ReadMessage 查看留言回复
 func ReadMessage(c *gin.Context) {
 	u := service.GetUsername(c)
-	m := dao.TakeDate("message")
-	M, _ := m.(model.Messes)
+	m := dao.TakeMessageDate()
 	var d model.Mess
 	ok := false
-	for _, date := range M {
+	for _, date := range m {
 		if date.OwnerName == u {
 			d = date
 			ok = true

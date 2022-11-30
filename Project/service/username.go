@@ -2,18 +2,16 @@ package service
 
 import (
 	"Project/dao"
-	"Project/model"
 	"strings"
 )
 
 // IsRepeatUsername 检查用户名是否满足要求
 // 参数：想要检查的用户名    返回值：bool ”用户名已存在“或者“设置成功”
 func IsRepeatUsername(username string) bool {
-	U := dao.TakeDate("user", "user")
-	u, _ := U.(model.Users)
+	U := dao.TakeUserDate()
 	var usernames []string
 	ok := false
-	for _, date := range u {
+	for _, date := range U {
 		usernames = append(usernames, date.Username)
 	}
 	for _, value := range usernames {

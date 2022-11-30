@@ -8,11 +8,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// PublishProduction 发表作品
 func PublishProduction(c *gin.Context) {
 	u := service.GetUsername(c)
-	var use model.Use
-	use.Comment.Author = u
-	use.Comment.WriterAndMessage = ""
+	var com model.Comment
+	com.Author = u
+	com.Writer = ""
 	respond.PublishProductionTrue(c)
-	dao.BringDate("comment", use)
+	dao.BringCommentDate(com)
 }

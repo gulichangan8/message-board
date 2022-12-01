@@ -4,6 +4,7 @@ import (
 	"Project/model"
 	"Project/tool"
 	"database/sql"
+	"github.com/gin-gonic/gin"
 )
 
 // TakeCommentDate 将comment表中的数据取出
@@ -93,4 +94,12 @@ func ChangeComments(id int, com string) {
 	if err != nil {
 		return
 	}
+}
+
+// GetComment 获得发表的评论
+func GetComment(c *gin.Context) (string, string, string) {
+	username := c.PostForm("username")
+	writeTo := c.PostForm("write_to")
+	comment := c.PostForm("comment")
+	return username, writeTo, comment
 }

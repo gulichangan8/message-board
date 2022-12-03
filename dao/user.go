@@ -36,34 +36,34 @@ func TakeQuestionDate() model.Queses {
 }
 
 // TakePersonDate 将person表中的数据取出
-func TakePersonDate() model.Messages {
-	rows, _ := dB.Query("select * from ?", "user")
-	var p model.Message
-	var P model.Messages
-	for rows.Next() {
-		err := rows.Scan(&p.Username, &p.Age, &p.Birthday, &p.Constellation, &p.Sex)
-		if err != nil {
-			panic(err)
-		}
-		P = append(P, p)
-	}
-	return P
-}
-
-// TakeLoginDate 将login表中的数据取出
-func TakeLoginDate() model.Logins {
-	rows, _ := dB.Query("select * from ?", "user")
-	var l model.Login
-	var L model.Logins
-	for rows.Next() {
-		err := rows.Scan(&l.Username, &l.Login)
-		if err != nil {
-			panic(err)
-		}
-		L = append(L, l)
-	}
-	return L
-}
+//func TakePersonDate() model.Messages {
+//	rows, _ := dB.Query("select * from ?", "user")
+//	var p model.Message
+//	var P model.Messages
+//	for rows.Next() {
+//		err := rows.Scan(&p.Username, &p.Age, &p.Birthday, &p.Constellation, &p.Sex)
+//		if err != nil {
+//			panic(err)
+//		}
+//		P = append(P, p)
+//	}
+//	return P
+//}
+//
+//TakeLoginDate 将login表中的数据取出
+//func TakeLoginDate() model.Logins {
+//	rows, _ := dB.Query("select * from ?", "user")
+//	var l model.Login
+//	var L model.Logins
+//	for rows.Next() {
+//		err := rows.Scan(&l.Username, &l.Login)
+//		if err != nil {
+//			panic(err)
+//		}
+//		L = append(L, l)
+//	}
+//	return L
+//}
 
 // BringUserDate 将数据存入user表
 func BringUserDate(u model.User) {

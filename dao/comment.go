@@ -76,14 +76,14 @@ func BringComments(parentId int, author string, writer string, comment string) {
 }
 
 // ChangeCommentDate 修改评论
-func ChangeCommentDate(comment string, username string) {
-	var dns = "root:040818@tcp(127.0.0.1:3306)/message_board?charset=utf8mb4&parseTime=True&loc=Local"
-	db, _ := sql.Open("mysql", dns)
-	_, err := db.Exec("update comment set `comment`=? where writer=?", comment, username)
-	if err != nil {
-		return
-	}
-}
+//func ChangeCommentDate(comment string, username string) {
+//	var dns = "root:040818@tcp(127.0.0.1:3306)/message_board?charset=utf8mb4&parseTime=True&loc=Local"
+//	db, _ := sql.Open("mysql", dns)
+//	_, err := db.Exec("update comment set `comment`=? where writer=?", comment, username)
+//	if err != nil {
+//		return
+//	}
+//}
 
 // ChangeComments 修改嵌套评论
 func ChangeComments(id int, com string) {

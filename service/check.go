@@ -122,18 +122,18 @@ func CheckAuthorExist(username string) bool {
 	return ok
 }
 
-func CheckWriteExist(username string) bool {
-	c := dao.TakeCommentDate()
-	ok := false
-	for _, date := range c {
-		if date.Writer == username {
-			ok = true
-		} else {
-			continue
-		}
-	}
-	return ok
-}
+//func CheckWriteExist(username string) bool {
+//	c := dao.TakeCommentDate()
+//	ok := false
+//	for _, date := range c {
+//		if date.Writer == username {
+//			ok = true
+//		} else {
+//			continue
+//		}
+//	}
+//	return ok
+//}
 
 func CheckCommentLength(comment string) bool {
 	var name = []rune(comment)

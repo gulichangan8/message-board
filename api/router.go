@@ -16,7 +16,7 @@ func InitEngine() {
 		user.PUT("/change_password", ChangePassword)
 		user.POST("/personal_message", PersonalMessage)
 		user.PUT("/change_personal_message", ChangePersonalMessage)
-		user.DELETE("logout", DeleteLogin)
+		user.DELETE("/logout", DeleteLogin)
 	}
 
 	// 留言接口
@@ -36,20 +36,20 @@ func InitEngine() {
 	comment := r.Group("/comment")
 	{
 		//以下是原表格（comment）评论（懒得删了,函数一层一层的太多啦）
-		comment.POST("/publish", PublishComment)
-		comment.PUT("/change", ChangeComment)
-		comment.DELETE("/delete", DeleteComment)
-		comment.POST("noname_comment", NoNameComment)
+		//comment.POST("/publish", PublishComment)
+		//comment.PUT("/change", ChangeComment)
+		//comment.DELETE("/delete", DeleteComment)
+		//comment.POST("noname_comment", NoNameComment)
 		//这两个不受comment影响
 		comment.PUT("/good", ChangeGood)
-		comment.GET("good_member", GetGoodMember)
+		comment.GET("/good_member", GetGoodMember)
 		//以下是comments嵌套评论
-		//comment.POST("/publish", PublishComment)
-		//comment.GET("comments", GetAuthorComment)
-		//comment.POST("publish_comments", PublishComments)
-		//comment.GET("my_comments", GetMyComment)
-		//comment.PUT("/change", ChangeComments)
-		//comment.DELETE("/delete", DeleteComments)
+		comment.POST("/publish", PublishComment)
+		comment.GET("/comments", GetAuthorComment)
+		comment.POST("/publish_comments", PublishComments)
+		comment.GET("/my_comments", GetMyComment)
+		comment.PUT("/change", ChangeComments)
+		comment.DELETE("/delete", DeleteComments)
 	}
 	err := r.Run()
 	if err != nil {

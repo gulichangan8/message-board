@@ -105,13 +105,13 @@ func DeleteCommentTrue(c *gin.Context) {
 	c.String(200, "评论删除成功")
 }
 
-func DeleteCommentErr(c *gin.Context) {
-	c.String(200, "评论删除失败，未找到评论")
-}
-
-func ChangeCommentErr(c *gin.Context) {
-	c.String(200, "未找到评论")
-}
+//func DeleteCommentErr(c *gin.Context) {
+//	c.String(200, "评论删除失败，未找到评论")
+//}
+//
+//func ChangeCommentErr(c *gin.Context) {
+//	c.String(200, "未找到评论")
+//}
 
 func PersonalMessageTrue(c *gin.Context) {
 	c.String(200, "个人信息保存成功")

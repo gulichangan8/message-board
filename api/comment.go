@@ -24,28 +24,28 @@ func PublishComment(c *gin.Context) {
 }
 
 // ChangeComment 修改评论
-func ChangeComment(c *gin.Context) {
-	a, w, com := service.GetUsernameCommentWriteTo(c)
-	ok := service.CheckAuthorExist(a) && service.CheckWriteExist(w)
-	if ok {
-		dao.ChangeCommentDate(com, a)
-		respond.ChangeCommentTrue(c)
-	} else {
-		respond.ChangeCommentErr(c)
-	}
-}
-
+//func ChangeComment(c *gin.Context) {
+//	a, w, com := service.GetUsernameCommentWriteTo(c)
+//	ok := service.CheckAuthorExist(a) && service.CheckWriteExist(w)
+//	if ok {
+//		dao.ChangeCommentDate(com, a)
+//		respond.ChangeCommentTrue(c)
+//	} else {
+//		respond.ChangeCommentErr(c)
+//	}
+//}
+//
 // DeleteComment 删除评论
-func DeleteComment(c *gin.Context) {
-	w := service.GetUsername(c)
-	ok := service.CheckAuthorExist(w)
-	if ok {
-		dao.ChangeCommentDate("", w)
-		respond.DeleteCommentTrue(c)
-	} else {
-		respond.ChangeCommentErr(c)
-	}
-}
+//func DeleteComment(c *gin.Context) {
+//	w := service.GetUsername(c)
+//	ok := service.CheckAuthorExist(w)
+//	if ok {
+//		dao.ChangeCommentDate("", w)
+//		respond.DeleteCommentTrue(c)
+//	} else {
+//		respond.ChangeCommentErr(c)
+//	}
+//}
 
 // ChangeGood 改变点赞状态
 func ChangeGood(c *gin.Context) {
@@ -60,17 +60,17 @@ func ChangeGood(c *gin.Context) {
 }
 
 // NoNameComment 匿名评论
-func NoNameComment(c *gin.Context) {
-	a, _, com := service.GetUsernameCommentWriteTo(c)
-	ok := service.CheckAuthorExist(a)
-	if ok {
-		C := tool.CreateComment(a, "", com)
-		dao.BringCommentDate(C)
-		respond.PublishCommentTrue(c)
-	} else {
-		respond.PublishCommentErr(c)
-	}
-}
+//func NoNameComment(c *gin.Context) {
+//	a, _, com := service.GetUsernameCommentWriteTo(c)
+//	ok := service.CheckAuthorExist(a)
+//	if ok {
+//		C := tool.CreateComment(a, "", com)
+//		dao.BringCommentDate(C)
+//		respond.PublishCommentTrue(c)
+//	} else {
+//		respond.PublishCommentErr(c)
+//	}
+//}
 
 // GetGoodMember 查看点赞数
 func GetGoodMember(c *gin.Context) {

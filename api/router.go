@@ -44,12 +44,12 @@ func InitEngine() {
 		comment.PUT("/good", ChangeGood)
 		comment.GET("good_member", GetGoodMember)
 		//以下是comments嵌套评论
-		comment.POST("/publish", PublishComment)
-		comment.GET("comments", GetAuthorComment)
-		comment.POST("publish_comments", PublishComments)
-		comment.GET("my_comments", GetMyComment)
-		comment.PUT("/change", ChangeComments)
-		comment.DELETE("/delete", DeleteComments)
+		//comment.POST("/publish", PublishComment)
+		//comment.GET("comments", GetAuthorComment)
+		//comment.POST("publish_comments", PublishComments)
+		//comment.GET("my_comments", GetMyComment)
+		//comment.PUT("/change", ChangeComments)
+		//comment.DELETE("/delete", DeleteComments)
 	}
 	err := r.Run()
 	if err != nil {
